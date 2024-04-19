@@ -10,12 +10,12 @@ cd work
 
 ```bash
 git clone https://github.com/itot555/vault-handson-public.git
-cd vault-handson-public/server/
 ```
 
 作業が終わったら、ディレクトリを移動し、以下のコマンドを実行します。
 
 ```bash
+cd vault-handson-public/server/
 terraform init
 terraform plan
 ```
@@ -26,7 +26,7 @@ terraform plan
 terraform apply -auto-approve
 ```
 
-`terraform apply` が問題なく完了すると、`cets` ディレクトリに証明書が生成されているはずです。
+`terraform apply` が問題なく完了すると、`certs` ディレクトリに証明書が生成されているはずです。
 
 その証明書を利用し、Vault サーバーの設定ファイルを作成しています。
 
@@ -34,7 +34,7 @@ terraform apply -auto-approve
 cat vault.hcl
 ```
 
-設定ファイルが確認したら、Server1 タブで以下を実行し、Vault サーバーを起動させます。下記のコマンドを実行したら、Terminal タブに戻ります。
+設定ファイルが確認したら、Server1 タブに移動して、以下を実行し、Vault サーバーを起動させます。下記のコマンドを実行したら、Terminal タブに戻ります。
 
 ```bash
 vault server -config=/root/work/vault-handson-public/server/vault.hcl
