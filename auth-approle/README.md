@@ -35,7 +35,7 @@ vault auth list
 terraform apply -auto-approve
 ```
 
-設定された内容を確認します。今まで有効化してきた認証メソッドは、`Type` と `Path` を同じ名前にしてきましたが、今回は `Path` を `test` としています。この様に同一の認証メソッドのタイプで別パスを指定する事が可能です。
+設定された内容を確認します。今まで有効化してきた認証メソッドは、`Type` と `Path` を同じ名前にしてきましたが、今回は `Path` を `test` としています。この様に同一の認証メソッドタイプで別パスを指定する事が可能です。
 
 ```bash
 vault auth list
@@ -103,7 +103,7 @@ resource "vault_approle_auth_backend_role" "r4" {
 vault list auth/test/role
 ```
 
-``bash
+```bash
 vault read auth/test/role/tokyo
 ```
 
