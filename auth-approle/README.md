@@ -32,6 +32,10 @@ vault auth list
 確認できたら、Terraform コードを反映させて、AppRole 認証メソッドを設定します。
 
 ```bash
+export VAULT_TOKEN=$ROOT_TOKEN
+```
+
+```bash
 terraform apply -auto-approve
 ```
 
@@ -183,6 +187,12 @@ export SECRET_ID_T=$(vault write -format=json -f auth/test/role/tokyo/secret-id 
 
 ```bash
 vault write auth/test/login role_id=$ROLE_ID_T secret_id=$SECRET_ID_T
+```
+
+生成されたトークンを環境変数に設定します。
+
+```bash
+export VAULT_TOKEN=
 ```
 
 生成されたトークンには、`read-fruits` ポリシーが付与されており、このポリシーに明示的に付与された権限の範囲で Vault を操作出来ます。
