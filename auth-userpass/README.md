@@ -14,6 +14,8 @@ Vault プロバイダの認証は先ほど設定した、`VAULT_ADDR`, `VAULT_TO
 
 ```bash
 cd ../auth-userpass
+```
+```bash
 terraform init
 terraform plan
 ```
@@ -92,6 +94,8 @@ vault policy read read-fruits
 
 ```bash
 vault secrets list
+```
+```bash
 vault kv list test
 ```
 
@@ -109,6 +113,8 @@ vegetables
 
 ```bash
 vault kv get test/fruits
+```
+```bash
 vault kv get test/vegetables
 ```
 

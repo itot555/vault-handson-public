@@ -7,7 +7,12 @@ Vault プロバイダの認証は先ほど設定した、`VAULT_ADDR`, `VAULT_TO
 TLS 認証メソッドで利用する認証局や、クライアント証明書を PKI シークレットエンジンを利用して準備します。
 
 ```bash
+export VAULT_TOKEN=$ROOT_TOKEN
+```
+```bash
 cd ../secrets-engine-pki
+```
+```bash
 terraform init
 terraform plan
 ```
@@ -63,18 +68,29 @@ vault list pki-handson-int/roles/
 ```bash
 vault read pki-handson-int/roles/client1
 ```
+```bash
+vault read pki-handson-int/roles/server1
+```
+```bash
+vault read pki-handson-int/roles/server2
+```
 
 次の、TLS 認証メソッドの設定で利用する証明書と秘密鍵をファイルにして保存しておきます。
 
 ```bash
 terraform output -json client_private_key | jq -r '.["client1"]' > ../auth-tls/certs/client1_key.pem
 terraform output -json client_certificate | jq -r '.["client1"]' > ../auth-tls/certs/client1_cert.pem
-
+```
+```bash
 terraform output -json client_private_key | jq -r '.["client2"]' > ../auth-tls/certs/client2_key.pem
 terraform output -json client_certificate | jq -r '.["client2"]' > ../auth-tls/certs/client2_cert.pem
-
+```
+```bash
 terraform output -json client_private_key | jq -r '.["client2"]' > ../auth-tls/certs/client3_key.pem
 terraform output -json client_certificate | jq -r '.["client2"]' > ../auth-tls/certs/client3_cert.pem
+```
+```bash
+ls -la ../auth-tls/certs/
 ```
 
 # References

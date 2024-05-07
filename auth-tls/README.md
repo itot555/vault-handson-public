@@ -8,6 +8,8 @@ TLS 認証メソッドを設定していきます。
 
 ```bash
 cd ../auth-tls
+```
+```bash
 terraform init
 terraform plan
 ```
@@ -56,6 +58,8 @@ resource "vault_cert_auth_backend_role" "others" {
 
 ```bash
 vault auth list
+```
+```bash
 vault list auth/cert/certs
 ```
 
@@ -63,6 +67,9 @@ vault list auth/cert/certs
 
 ```bash
 vault read auth/cert/certs/client1
+```
+```bash
+vault read auth/cert/certs/others
 ```
 
 先ほどファイルに保存しておいた証明書と秘密鍵のペアを利用して、TLS 認証メソッドでログインしてみます。

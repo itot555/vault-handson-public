@@ -18,7 +18,12 @@
 Vault プロバイダの認証は先ほど設定した、`VAULT_ADDR`, `VAULT_TOKEN` で行っています。`auth-tls` ディレクトリで作業を行っていた前提の手順になります。
 
 ```bash
+export VAULT_TOKEN=$ROOT_TOKEN
+```
+```bash
 cd ../auth-approle
+```
+```bash
 terraform init
 terraform plan
 ```
@@ -30,10 +35,6 @@ vault auth list
 ```
 
 確認できたら、Terraform コードを反映させて、AppRole 認証メソッドを設定します。
-
-```bash
-export VAULT_TOKEN=$ROOT_TOKEN
-```
 
 ```bash
 terraform apply -auto-approve
@@ -110,6 +111,15 @@ vault list auth/test/role
 ```bash
 vault read auth/test/role/tokyo
 ```
+```bash
+vault read auth/test/role/osaka
+```
+```bash
+vault read auth/test/role/nagoya
+```
+```bash
+vault read auth/test/role/fukuoka
+```
 
 *コマンド出力例*
 ```console
@@ -140,6 +150,10 @@ terraform output -json nagoya_roleid | jq -r . > role-id/nagoya
 terraform output -json fukuoka_roleid | jq -r . > role-id/fukuoka
 ```
 
+```bash
+ls -la role-id/
+```
+
 それぞれ環境変数に設定しておきます。
 
 **Notes:** これ以降、環境変数の定義で使っている `_O` は、英大文字オーです。
@@ -149,6 +163,15 @@ export ROLE_ID_T=$(cat role-id/tokyo)
 export ROLE_ID_O=$(cat role-id/osaka)
 export ROLE_ID_N=$(cat role-id/nagoya)
 export ROLE_ID_F=$(cat role-id/fukuoka)
+```
+
+各ロールに紐づく `role-id` の値を確認してみます。
+
+```bash
+echo $ROLE_ID_T
+echo $ROLE_ID_O
+echo $ROLE_ID_N
+echo $ROLE_ID_F
 ```
 
 # Login with AppRole
@@ -181,6 +204,7 @@ vault write -f auth/test/role/tokyo/secret-id
 
 ```bash
 export SECRET_ID_T=$(vault write -format=json -f auth/test/role/tokyo/secret-id | jq -r ".data.secret_id")
+echo $SECRET_ID_T
 ```
 
 `vault` CLI で、`tokyo` ロールを利用し、ログインします。
@@ -241,6 +265,7 @@ export VAULT_TOKEN=$ROOT_TOKEN
 
 ```bash
 export SECRET_ID_N=$(vault write -format=json -f auth/test/role/nagoya/secret-id | jq -r ".data.secret_id")
+echo $SECRET_ID_N
 ```
 
 ログインを試みてます。
@@ -289,6 +314,7 @@ export VAULT_TOKEN=$ROOT_TOKEN
 
 ```bash
 export SECRET_ID_F=$(vault write -format=json -f auth/test/role/fukuoka/secret-id | jq -r ".data.secret_id")
+echo $SECRET_ID_F
 ```
 
 ログインを試みてます。

@@ -16,6 +16,17 @@ git clone https://github.com/itot555/vault-handson-public.git
 
 ```bash
 cd vault-handson-public/server/
+```
+
+作業ディレクトリに Terraform コードがあるので、ハンズオンではこれらを利用して、環境を構築して行きます。
+
+```bash
+ls -la
+```
+
+作業ディレクトリで初期化と実行計画を確認します。
+
+```bash
 terraform init
 terraform plan
 ```
@@ -28,13 +39,17 @@ terraform apply -auto-approve
 
 `terraform apply` が問題なく完了すると、`certs` ディレクトリに証明書が生成されているはずです。
 
+```bash
+ls -la certs/
+```
+
 その証明書を利用し、Vault サーバーの設定ファイルを作成しています。
 
 ```bash
 cat vault.hcl
 ```
 
-設定ファイルが確認したら、Server1 タブに移動して、以下を実行し、Vault サーバーを起動させます。下記のコマンドを実行したら、Terminal タブに戻ります。
+設定ファイルが確認したら、Server1 タブに移動して、以下を実行し、Vault サーバーを起動させます。プロンプトは返ってきませんが、そのままで大丈夫です。下記のコマンドを実行したら、Terminal タブに戻ります。
 
 ```bash
 vault server -config=/root/work/vault-handson-public/server/vault.hcl
@@ -70,7 +85,11 @@ vault operator init -key-shares=1 -key-threshold=1 | tee init.out
 
 ```bash
 export ROOT_TOKEN=
+```
+```bash
 export VAULT_TOKEN=$ROOT_TOKEN
+```
+```bash
 export UNSEAL_KEY=
 ```
 
