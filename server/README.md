@@ -1,6 +1,16 @@
 # Vault server setup
 
-まずは、Vault サーバーをセットアップします。今回は TLS 認証メソッドを利用するため、サーバー証明書を作成し、Vault サーバーを起動します。
+## Contents
+
+- [TLS](#tls)
+- [Disable TLS](#disable-tls)
+- [References](#references)
+
+# TLS
+
+**Notes:** TLS 認証メソッドを利用する場合、こちらの方法で Vault サーバーを設定します。Instruqt の制約上、TLS 設定を有効化して Vault サーバーを起動させた場合、Vault UI にはアクセスできません。
+
+まずは、Vault サーバーをセットアップします。TLS 認証メソッドを利用するため、サーバー証明書を作成し、Vault サーバーを起動します。
 
 ```bash
 cd work
@@ -49,7 +59,7 @@ ls -la certs/
 cat vault.hcl
 ```
 
-設定ファイルが確認したら、Server1 タブに移動して、以下を実行し、Vault サーバーを起動させます。プロンプトは返ってきませんが、そのままで大丈夫です。下記のコマンドを実行したら、Terminal タブに戻ります。
+設定ファイルを確認したら、Server タブに移動して、以下を実行し、Vault サーバーを起動させます。プロンプトは返ってきませんが、そのままで大丈夫です。下記のコマンドを実行したら、Terminal タブに戻ります。
 
 ```bash
 vault server -config=/root/work/vault-handson-public/server/vault.hcl
@@ -127,18 +137,103 @@ Raft Committed Index    29
 Raft Applied Index      29
 ```
 
+# Disable TLS
+
+まずは、Vault サーバーをセットアップします。
+
+```bash
+cd work
+```
+
+ハンズオンで利用するコンテンツを `git clone` で取得します。
+
+```bash
+git clone https://github.com/itot555/vault-handson-public.git
+```
+
+作業が終わったら、ディレクトリを移動し、以下のコマンドを実行します。
+
+```bash
+cd vault-handson-public/server/
+```
+```bash
+cat vault-no-tls.hcl
+```
+
+設定ファイルを確認したら、Server タブに移動して、以下を実行し、Vault サーバーを起動させます。プロンプトは返ってきませんが、そのままで大丈夫です。下記のコマンドを実行したら、Terminal タブに戻ります。
+
+```bash
+vault server -config=/root/work/vault-handson-public/server/vault-no-tls.hcl
+```
+
+`VAULT_ADDR` 環境変数を設定し、Vault の初期化を行い、Unseal 処理を行います。
+
+```bash
+export VAULT_ADDR="http://127.0.0.1:8200"
+```
+
+```bash
+vault operator init -key-shares=1 -key-threshold=1 | tee init.out
+```
+
+`Unseal Key 1:` の値を環境変数 `UNSEAL_KEY` に、`Initial Root Token:` の値を環境変数 `ROOT_TOKEN` に設定し、それを環境変数 `VAULT_TOKEN` に設定します。
+
+```bash
+export ROOT_TOKEN=
+```
+```bash
+export VAULT_TOKEN=$ROOT_TOKEN
+```
+```bash
+export UNSEAL_KEY=
+```
+
+Unseal 処理を行います。
+
+```bash
+vault operator unseal $UNSEAL_KEY
+```
+
+Unseal 処理が完了し、`vault status` コマンドで Vault サーバーのステータスを確認し、`Sealed` が `false` となっていれば、Vault サーバーのセットアップは完了です。
+
+```bash
+vault status
+```
+
+*コマンド出力例*
+```console
+Key                     Value
+---                     -----
+Seal Type               shamir
+Initialized             true
+Sealed                  false
+Total Shares            1
+Threshold               1
+Version                 1.16.1
+Build Date              2024-04-03T12:35:53Z
+Storage Type            raft
+Cluster Name            vault-cluster-e83091e6
+Cluster ID              d582aaad-ca5c-e6e1-c1f2-d0694a50169b
+HA Enabled              true
+HA Cluster              n/a
+HA Mode                 standby
+Active Node Address     <none>
+Raft Committed Index    29
+Raft Applied Index      29
+```
+
 # References
 
-### Documents
+## Documents
 
 - [Vault configuration](https://developer.hashicorp.com/vault/docs/configuration)
 - [CLI - server](https://developer.hashicorp.com/vault/docs/commands/server)
 
-### Validated Design
+## Validated Design
 
 - [Detailed design](https://developer.hashicorp.com/validated-designs/vault-solution-design-guides-vault-enterprise/detailed-design)
 
-### Tutorial
+## Tutorial
 
 - [Configure Vault](https://developer.hashicorp.com/vault/tutorials/operations/configure-vault)
 - [Production hardening](https://developer.hashicorp.com/vault/tutorials/operations/production-hardening)
