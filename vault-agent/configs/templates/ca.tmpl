@@ -1,0 +1,3 @@
+{{- /* templates/ca.ctmpl */ -}}
+{{ with secret "pki-handson-int/issue/server2" "common_name=nginx.handson.dev" "ttl=1m"}}
+{{ .Data.issuing_ca }}{{ end }}

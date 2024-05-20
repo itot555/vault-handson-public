@@ -1,0 +1,3 @@
+{{- /* templates/cert.ctmpl */ -}}
+{{ with secret "pki-handson-int/issue/server2" "common_name=nginx.handson.dev" "ttl=1m"}}
+{{ .Data.certificate }}{{ end }}

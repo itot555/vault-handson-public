@@ -53,3 +53,32 @@ path "auth/token/revoke-self" {
 }
 EOT
 }
+
+/*
+resource "vault_policy" "agent" {
+  name = "vault-agent"
+
+  policy = <<EOT
+# Permits token creation
+path "auth/token/create" {
+  capabilities = ["update"]
+}
+# Enable secrets engine
+path "sys/mounts/*" {
+  capabilities = ["create", "read", "update", "delete", "list"]
+}
+# List enabled secrets engine
+path "sys/mounts" {
+  capabilities = ["read", "list"]
+}
+# Issue certs with servers role
+path "pki-handson-int/issue/server2" {
+  capabilities = ["create", "read", "update", "delete", "list"]
+}
+# List role
+path "pki-handson-int/roles/server2" {
+  capabilities = ["read", "list"]
+}
+EOT
+}
+*/
