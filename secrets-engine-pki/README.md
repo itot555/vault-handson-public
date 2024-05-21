@@ -93,6 +93,12 @@ terraform output -json client_certificate | jq -r '.["client2"]' > ../auth-tls/c
 ls -la ../auth-tls/certs/
 ```
 
+# Next
+
+TLS 認証メソッドを確認する場合、[TLS 認証メソッドの設定と確認](https://github.com/itot555/vault-handson-public/tree/main/auth-tls)を行って下さい。
+
+そうでない場合、[AppRole 認証メソッドの設定と確認](https://github.com/itot555/vault-handson-public/tree/main/auth-approle)を行って下さい。
+
 # References
 
 - [PKI secrets engine](https://developer.hashicorp.com/vault/docs/secrets/pki)

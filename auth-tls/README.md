@@ -132,6 +132,10 @@ vault kv get test/vegetables
 
 この様に TLS 証明書を用いて、Vault への認証を行い、ロールに付与されたポリシーで認可設定を行う事が可能です。
 
+# Next
+
+次は、[AppRole 認証メソッドの設定と確認](https://github.com/itot555/vault-handson-public/tree/main/auth-approle)を行って下さい。
+
 # References
 
 - [TLS certificates auth method](https://developer.hashicorp.com/vault/docs/auth/cert)

@@ -1,14 +1,17 @@
 # Vault server setup
 
+TLS 認証メソッドを利用する場合、[TLS](#tls) の方法で Vault サーバーを設定します。
+
+**Notes:** Instruqt の制約上、TLS 設定を有効化して Vault サーバーを起動させた場合、Vault UI にはアクセスできません。
+
 ## Contents
 
 - [TLS](#tls)
 - [Disable TLS](#disable-tls)
+- [Next](#next)
 - [References](#references)
 
 # TLS
-
-**Notes:** TLS 認証メソッドを利用する場合、こちらの方法で Vault サーバーを設定します。Instruqt の制約上、TLS 設定を有効化して Vault サーバーを起動させた場合、Vault UI にはアクセスできません。
 
 まずは、Vault サーバーをセットアップします。TLS 認証メソッドを利用するため、サーバー証明書を作成し、Vault サーバーを起動します。
 
@@ -221,6 +224,10 @@ Active Node Address     <none>
 Raft Committed Index    29
 Raft Applied Index      29
 ```
+
+# Next
+
+次は、[Userpass 認証メソッドの設定](https://github.com/itot555/vault-handson-public/tree/main/auth-userpass)を行って下さい。
 
 # References
 

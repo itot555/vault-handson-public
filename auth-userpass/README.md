@@ -8,6 +8,7 @@ Vault プロバイダの認証は先ほど設定した、`VAULT_ADDR`, `VAULT_TO
 
 - [Configure userpass, kv-v2 and policy](#configure-userpass-kv-v2-and-policy)
 - [Login with userpass](#login-with-userpass)
+- [Next](#next)
 - [References](#references)
 
 # Configure userpass, kv-v2 and policy
@@ -261,6 +262,10 @@ vault kv get test/vegetables
 認証メソッドが変更されても、Vault へのアクセス制御という観点では同じ考え方で実装されています。
 
 **Notes:** Vault のルートトークンを確認したい場合、`~/work/vault-handson-public/server/init.out` を確認してください。
+
+# Next
+
+次は、[PKI シークレットエンジンの設定](https://github.com/itot555/vault-handson-public/tree/main/secrets-engine-pki)を行って下さい。
 
 # References
 
