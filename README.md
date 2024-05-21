@@ -14,7 +14,10 @@ This contents is based on [Instruqt](https://instruqt.com/)
 1. [TLS 認証メソッドの設定と確認](https://github.com/itot555/vault-handson-public/tree/main/auth-tls)
 1. [AppRole 認証メソッドの設定と確認](https://github.com/itot555/vault-handson-public/tree/main/auth-approle)
 
-**WIP**
+## Vault Agent
 
 1. [Vault Agent の設定と確認](https://github.com/itot555/vault-handson-public/tree/main/vault-agent)
+
+**WIP**
+
 1. [SSH シークレットエンジンの設定と確認](https://github.com/itot555/vault-handson-public/tree/main/secrets-engine-ssh-cert)
