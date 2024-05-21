@@ -57,7 +57,7 @@ token/       token       auth_token_f3b4b406       token based credentials      
 userpass/    userpass    auth_userpass_0867db63    for human access on handson environment    n/a
 ```
 
-ここでは 5 つのロールを定義しています。5 つ目のロール、`agent` はここでは使いません。
+ここでは 5 つのロールを定義しています。5 つ目のロール `agent` はここでは使いません。
 
 ```hcl
 resource "vault_approle_auth_backend_role" "r1" {

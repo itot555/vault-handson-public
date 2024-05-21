@@ -51,7 +51,6 @@ resource "vault_approle_auth_backend_role" "r4" {
 resource "vault_approle_auth_backend_role" "r5" {
   backend            = vault_auth_backend.approle.path
   role_name          = "agent"
-  secret_id_num_uses = 3
   secret_id_ttl      = 600
   token_policies     = ["default", "read-pki-server2-role"]
   token_ttl          = 300
