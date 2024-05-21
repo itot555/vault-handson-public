@@ -6,7 +6,7 @@ vault {
 
 auto_auth {
   method "approle" {
-    mount_path = "auth/approle"
+    mount_path = "auth/test"
     config = {
       role_id_file_path                   = "/root/work/vault-handson-public/vault-agent/configs/roleID"
       secret_id_file_path                 = "/root/work/vault-handson-public/vault-agent/configs/secretID"
@@ -31,19 +31,19 @@ listener "tcp" {
 }
 
 template {
-  source      = "/root/work/vault-handson-public/vault-agent/configs/templates/cert.ctmpl"
+  source      = "/root/work/vault-handson-public/vault-agent/configs/templates/cert.tmpl"
   destination = "/root/work/vault-handson-public/vault-agent/configs/nginx/ssl/cert.crt"
   command     = "docker exec nginx-container nginx -s reload && echo Ok || echo Failed"
 }
 
 template {
-  source      = "/root/work/vault-handson-public/vault-agent/configs/templates/ca.ctmpl"
+  source      = "/root/work/vault-handson-public/vault-agent/configs/templates/ca.tmpl"
   destination = "/root/work/vault-handson-public/vault-agent/configs/nginx/ssl/ca.crt"
   command     = "docker exec nginx-container nginx -s reload && echo Ok || echo Failed"
 }
 
 template {
-  source      = "/root/work/vault-handson-public/vault-agent/configs/templates/key.ctmpl"
+  source      = "/root/work/vault-handson-public/vault-agent/configs/templates/key.tmpl"
   destination = "/root/work/vault-handson-public/vault-agent/configs/nginx/ssl/cert.key"
   command     = "docker exec nginx-container nginx -s reload && echo Ok || echo Failed"
 }

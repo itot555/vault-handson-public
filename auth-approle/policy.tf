@@ -29,7 +29,7 @@ EOT
 }
 
 resource "vault_policy" "r4_secretid" {
-  name = "generate-nagoya-secretid"
+  name = "generate-fukuoka-secretid"
 
   policy = <<EOT
 path "auth/${var.approle_path}/role/fukuoka/secret-id" {
@@ -54,23 +54,11 @@ path "auth/token/revoke-self" {
 EOT
 }
 
-/*
+
 resource "vault_policy" "agent" {
-  name = "vault-agent"
+  name = "read-pki-server2-role"
 
   policy = <<EOT
-# Permits token creation
-path "auth/token/create" {
-  capabilities = ["update"]
-}
-# Enable secrets engine
-path "sys/mounts/*" {
-  capabilities = ["create", "read", "update", "delete", "list"]
-}
-# List enabled secrets engine
-path "sys/mounts" {
-  capabilities = ["read", "list"]
-}
 # Issue certs with servers role
 path "pki-handson-int/issue/server2" {
   capabilities = ["create", "read", "update", "delete", "list"]
@@ -81,4 +69,3 @@ path "pki-handson-int/roles/server2" {
 }
 EOT
 }
-*/

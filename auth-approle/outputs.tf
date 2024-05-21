@@ -18,6 +18,11 @@ output "fukuoka_roleid" {
   value       = data.vault_approle_auth_backend_role_id.r4.role_id
 }
 
+output "agent_roleid" {
+  description = "The RoleID of the role: agent"
+  value       = data.vault_approle_auth_backend_role_id.r5.role_id
+}
+
 output "tokyo_secretid_client_token" {
   description = "String containing the client token for generating tokyo secretid"
   value       = vault_token.r1_secretid.client_token

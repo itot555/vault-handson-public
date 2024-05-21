@@ -9,6 +9,7 @@
   - [`fukuoka` role](#fukuoka-role)
   - [`osaka` role](#osaka-role)
   - [Additional](#additional)
+- [Next](#next)
 - [References](#references)
 
 # Configure AppRole
@@ -56,7 +57,7 @@ token/       token       auth_token_f3b4b406       token based credentials      
 userpass/    userpass    auth_userpass_0867db63    for human access on handson environment    n/a
 ```
 
-ここでは 4 つのロールを定義しています。
+ここでは 5 つのロールを定義しています。5 つ目のロール、`agent` はここでは使いません。
 
 ```hcl
 resource "vault_approle_auth_backend_role" "r1" {
@@ -99,6 +100,17 @@ resource "vault_approle_auth_backend_role" "r4" {
   token_ttl          = 600
   token_max_ttl      = 600
   token_bound_cidrs  = ["10.0.10.0/24"]
+}
+
+resource "vault_approle_auth_backend_role" "r5" {
+  backend            = vault_auth_backend.approle.path
+  role_name          = "agent"
+  secret_id_num_uses = 3
+  secret_id_ttl      = 600
+  token_policies     = ["default", "read-pki-server2-role"]
+  token_ttl          = 300
+  token_max_ttl      = 600
+  depends_on         = [vault_policy.agent]
 }
 ```
 
@@ -148,6 +160,7 @@ terraform output -json tokyo_roleid | jq -r . > role-id/tokyo
 terraform output -json osaka_roleid | jq -r . > role-id/osaka
 terraform output -json nagoya_roleid | jq -r . > role-id/nagoya
 terraform output -json fukuoka_roleid | jq -r . > role-id/fukuoka
+terraform output -json fukuoka_roleid | jq -r . > role-id/agent
 ```
 
 ```bash
@@ -163,6 +176,7 @@ export ROLE_ID_T=$(cat role-id/tokyo)
 export ROLE_ID_O=$(cat role-id/osaka)
 export ROLE_ID_N=$(cat role-id/nagoya)
 export ROLE_ID_F=$(cat role-id/fukuoka)
+export ROLE_ID_A=$(cat role-id/agent)
 ```
 
 各ロールに紐づく `role-id` の値を確認してみます。
@@ -172,6 +186,7 @@ echo $ROLE_ID_T
 echo $ROLE_ID_O
 echo $ROLE_ID_N
 echo $ROLE_ID_F
+echo $ROLE_ID_A
 ```
 
 # Login with AppRole
@@ -659,6 +674,12 @@ export WRAP_TOKEN_O=$(curl --header "X-VAULT-TOKEN: $GEN_SECRET_ID_O_TOKEN" --he
 export SECRET_ID_O=$(curl --header "X-VAULT-TOKEN: $WRAP_TOKEN_O" --request POST $VAULT_ADDR/v1/sys/wrapping/unwrap | jq -r .data.secret_id)
 export VAULT_CLIENT_TOKEN_O=$(curl --request POST --data '{"role_id": "'"$ROLE_ID_O"'", "secret_id": "'"$SECRET_ID_O"'"}' $VAULT_ADDR/v1/auth/test/login | jq -r .auth.client_token)
 ```
+
+# Next
+
+**WIP**
+
+次は、[Vault Agent の設定と確認](https://github.com/itot555/vault-handson-public/tree/main/vault-agent)を行って下さい。
 
 # References
 
