@@ -19,8 +19,8 @@ resource "vault_pki_secret_backend_root_cert" "root" {
 
 resource "vault_pki_secret_backend_config_urls" "config_urls" {
   backend                 = vault_mount.root.path
-  issuing_certificates    = ["https://127.0.0.1:8200/v1/${var.pki_path}/ca"]
-  crl_distribution_points = ["https://127.0.0.1:8200/v1/${var.pki_path}/crl"]
+  issuing_certificates    = ["${var.vault_url}/v1/${var.pki_path}/ca"]
+  crl_distribution_points = ["${var.vault_url}/v1/${var.pki_path}/crl"]
 }
 
 # Intermediate CA
@@ -130,4 +130,70 @@ resource "vault_pki_secret_backend_cert" "client" {
   auto_renew = true
 
   common_name = each.value
+}
+
+# For ACME
+resource "vault_mount" "int_acme" {
+  path        = "pki-acme-int"
+  type        = "pki"
+  description = "intermediate ca for acme in vault handson environment"
+
+  default_lease_ttl_seconds = 2592000 #30days
+  max_lease_ttl_seconds     = 7776000 #90days
+
+  options = {
+    "passthrough_request_headers" = "If-Modified-Since"
+    "allowed_response_headers"    = "Last-Modified,Location,Replay-Nonce,Link"
+  }
+}
+
+resource "vault_pki_secret_backend_intermediate_cert_request" "int_acme" {
+  backend     = vault_mount.int_acme.path
+  type        = "internal"
+  common_name = "handson.dev intermediate ca acme"
+}
+
+resource "vault_pki_secret_backend_root_sign_intermediate" "root_acme" {
+  depends_on  = [vault_pki_secret_backend_intermediate_cert_request.int_acme]
+  backend     = vault_mount.root.path
+  csr         = vault_pki_secret_backend_intermediate_cert_request.int_acme.csr
+  common_name = "handson.dev intermediate ca"
+  format      = "pem"
+  ttl         = 7776000
+}
+
+resource "vault_pki_secret_backend_intermediate_set_signed" "int_acme" {
+  backend     = vault_mount.int_acme.path
+  certificate = vault_pki_secret_backend_root_sign_intermediate.root.certificate
+}
+
+resource "vault_pki_secret_backend_config_cluster" "int_acme" {
+  backend  = vault_mount.int_acme.path
+  path     = "${var.vault_url}/v1/pki-acme-int/"
+  aia_path = "${var.vault_url}/v1/pki-acme-int"
+}
+
+resource "vault_pki_secret_backend_config_urls" "int_acme" {
+  backend                 = vault_mount.int_acme.path
+  issuing_certificates    = ["{{cluster_aia_path}}/issuer/{{issuer_id}}/der"]
+  crl_distribution_points = ["{{cluster_aia_path}}/issuer/{{issuer_id}}/crl/der"]
+  ocsp_servers            = ["{{cluster_path}}/ocsp"]
+  enable_templating       = true
+}
+
+resource "vault_pki_secret_backend_role" "acme" {
+  backend        = vault_mount.int_acme.path
+  name           = "acme"
+  issuer_ref     = "default"
+  allow_any_name = true
+  max_ttl        = 2592000
+  no_store       = false
+}
+
+resource "vault_generic_endpoint" "pki_int_acme" {
+  path = "${vault_mount.int_acme.path}/config/acme"
+
+  data_json = jsonencode({
+    enable = true
+  })
 }
