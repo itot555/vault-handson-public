@@ -2,7 +2,11 @@
 
 TLS 認証メソッドを利用する場合、[TLS](#tls) の方法で Vault サーバーを設定します。
 
-**Notes:** Instruqt の制約上、TLS 設定を有効化して Vault サーバーを起動させた場合、Vault UI にはアクセスできません。
+> [!NOTE]
+Instruqt の制約上、TLS 設定を有効化して Vault サーバーを起動させた場合、Vault UI にはアクセスできません。
+
+> [!NOTE]
+> キーシェアを暗号化した手順を確認したい場合は、`vault operator init` の手順の前で、[こちら]()に移動し、作業して下さい。
 
 ## Contents
 
