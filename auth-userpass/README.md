@@ -6,10 +6,15 @@ Vault プロバイダの認証は先ほど設定した、`VAULT_ADDR`, `VAULT_TO
 
 ## Contents
 
+- [Prerequisites](#prerequisites)
 - [Configure userpass, kv-v2 and policy](#configure-userpass-kv-v2-and-policy)
 - [Login with userpass](#login-with-userpass)
 - [Next](#next)
 - [References](#references)
+
+# Prerequisites
+
+- [Vault サーバーセットアップ](https://github.com/itot555/vault-handson-public/tree/main/server)
 
 # Configure userpass, kv-v2 and policy
 

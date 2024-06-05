@@ -1,7 +1,11 @@
 # Configure AppRole auth method
 
+> [!NOTE]
+> Vault のルートトークンを確認したい場合、`~/work/vault-handson-public/server/init.out` を確認してください。
+
 ## Contents
 
+- [Prerequisites](#prerequisites)
 - [Configure AppRole](#configure-approle)
 - [Login with AppRole](#login-with-approle)
   - [`tokyo` role](#tokyo-role)
@@ -12,9 +16,12 @@
 - [Next](#next)
 - [References](#references)
 
-# Configure AppRole
+# Prerequisites
 
-**Notes:** Vault のルートトークンを確認したい場合、`~/work/vault-handson-public/server/init.out` を確認してください。
+- [Vault サーバーセットアップ](https://github.com/itot555/vault-handson-public/tree/main/server)
+- [Userpass 認証メソッドの設定](https://github.com/itot555/vault-handson-public/tree/main/auth-userpass)
+
+# Configure AppRole
 
 Vault プロバイダの認証は先ほど設定した、`VAULT_ADDR`, `VAULT_TOKEN` で行っています。`auth-tls` ディレクトリで作業を行っていた前提の手順になります。
 

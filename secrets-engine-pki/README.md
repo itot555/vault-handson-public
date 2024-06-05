@@ -1,6 +1,21 @@
 # Prepare TLS auth method with PKI secrets engine
 
-**Notes:** Vault のルートトークンを確認したい場合、`~/work/vault-handson-public/server/init.out` を確認してください。
+> [!NOTE]
+> Vault のルートトークンを確認したい場合、`~/work/vault-handson-public/server/init.out` を確認してください。
+
+## Contents
+
+- [Prerequisites](#prerequisites)
+- [Set up PKI secrets engine](#set-up-pki-secrets-engine)
+- [Next](#next)
+- [References](#references)
+
+# Prerequisites
+
+- [Vault サーバーセットアップ](https://github.com/itot555/vault-handson-public/tree/main/server)
+- [Userpass 認証メソッドの設定](https://github.com/itot555/vault-handson-public/tree/main/auth-userpass)
+
+# Set up PKI secrets engine
 
 Vault プロバイダの認証は先ほど設定した、`VAULT_ADDR`, `VAULT_TOKEN` で行っています。`auth-userpass` ディレクトリで作業を行っていた前提の手順になります。
 

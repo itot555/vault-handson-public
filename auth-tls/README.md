@@ -1,6 +1,23 @@
 # Configure TLS auth method
 
-**Notes:** Vault のルートトークンを確認したい場合、`~/work/vault-handson-public/server/init.out` を確認してください。
+> [!NOTE]
+> Vault のルートトークンを確認したい場合、`~/work/vault-handson-public/server/init.out` を確認してください。
+
+## Contents
+
+- [Prerequisites](#prerequisites)
+- [Set up TLS auth method](#set-up-tls-auth-method)
+- [Login with tls auth method](#login-with-tls-auth-method)
+- [Next](#next)
+- [References](#references)
+
+# Prerequisites
+
+- [Vault サーバーセットアップ](https://github.com/itot555/vault-handson-public/tree/main/server)
+- [Userpass 認証メソッドの設定](https://github.com/itot555/vault-handson-public/tree/main/auth-userpass)
+- [PKI シークレットエンジンの設定](https://github.com/itot555/vault-handson-public/tree/main/secrets-engine-pki)
+
+# Set up TLS auth method
 
 Vault プロバイダの認証は先ほど設定した、`VAULT_ADDR`, `VAULT_TOKEN` で行っています。`secrets-engine-pki` ディレクトリで作業を行っていた前提の手順になります。
 
@@ -71,6 +88,8 @@ vault read auth/cert/certs/client1
 ```bash
 vault read auth/cert/certs/others
 ```
+
+# Login with tls auth method
 
 先ほどファイルに保存しておいた証明書と秘密鍵のペアを利用して、TLS 認証メソッドでログインしてみます。
 

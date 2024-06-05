@@ -6,16 +6,22 @@ Vault Agent を利用する事で、Vault への認証、シークレットの�
 
 Vault Agent が利用する認証メソッド、Vault Agent に付与する権限の設定、Vault Agent の設定ファイルなどを作成していきます。
 
-**Notes:** 事前に、[PKI シークレットエンジン](https://github.com/itot555/vault-handson-public/tree/main/secrets-engine-pki)と [AppRole の設定](https://github.com/itot555/vault-handson-public/tree/main/auth-approle)を行っておいて下さい。
-
 ## Contents
 
+- [Prerequisites](#prerequisites)
 - [Configure PKI secrets engine](#configure-pki-secrets-engine)
 - [Configure AppRole and Policy](#configure-approle-and-policy)
 - [Configure Nginx](#configure-nginx)
 - [Configure Vault Agent](#configure-vault-agent)
 - [Check automatically certificate update](#check-automatically-certificate-update)
 - [References](#references)
+
+# Prerequisites
+
+- [Vault サーバーセットアップ](https://github.com/itot555/vault-handson-public/tree/main/server)
+- [Userpass 認証メソッドの設定](https://github.com/itot555/vault-handson-public/tree/main/auth-userpass)
+- [PKI シークレットエンジン](https://github.com/itot555/vault-handson-public/tree/main/secrets-engine-pki)
+- [AppRole の設定](https://github.com/itot555/vault-handson-public/tree/main/auth-approle)
 
 # Configure PKI secrets engine
 
