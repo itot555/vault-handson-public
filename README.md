@@ -18,6 +18,6 @@ This contents is based on [Instruqt](https://instruqt.com/)
 
 1. [Vault Agent の設定と確認](https://github.com/itot555/vault-handson-public/tree/main/vault-agent)
 
-**WIP**
+## SSH secrets engine
 
 1. [SSH シークレットエンジンの設定と確認](https://github.com/itot555/vault-handson-public/tree/main/secrets-engine-ssh-cert)
