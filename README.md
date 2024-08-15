@@ -21,3 +21,8 @@ This contents is based on [Instruqt](https://instruqt.com/)
 ## SSH secrets engine
 
 1. [SSH シークレットエンジンの設定と確認](https://github.com/itot555/vault-handson-public/tree/main/secrets-engine-ssh-cert)
+
+## Additional
+
+1. [LDAP 認証メソッドの設定](https://github.com/itot555/vault-handson-public/tree/main/auth-ldap)
+1. [Database シークレットエンジンの設定](https://github.com/itot555/vault-handson-public/tree/main/secrets-engine-db)
