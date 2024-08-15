@@ -25,4 +25,5 @@ This contents is based on [Instruqt](https://instruqt.com/)
 ## Additional
 
 1. [LDAP 認証メソッドの設定](https://github.com/itot555/vault-handson-public/tree/main/auth-ldap)
+1. [AWS 認証メソッドの設定](https://github.com/itot555/vault-handson-public/tree/main/auth-aws)
 1. [Database シークレットエンジンの設定](https://github.com/itot555/vault-handson-public/tree/main/secrets-engine-db)
